@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout Code') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Terraform Version') {
+            steps {
+                bat 'D:\\study\\Teraform\\terraform.exe version'
+            }
+        }
+
+        stage('Terraform Init') {
+            steps {
+                dir('terraform') {
+                    bat 'D:\\study\\Teraform\\terraform.exe init'
+                }
+            }
+        }
+
+        stage('Terraform Format Check') {
+            steps {
+                dir('terraform') {
+                    bat 'D:\\study\\Teraform\\terraform.exe fmt -check'
+                }
+            }
+        }
+
+        stage('Terraform Validate') {
+            steps {
+                dir('terraform') {
+                    bat 'D:\\study\\Teraform\\terraform.exe validate'
+                }
+            }
+        }
+    }
+}
